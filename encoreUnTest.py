@@ -201,10 +201,30 @@ class Lifq_2d:
 # Even if it's monochrome its pixel values will be grayed out anyway
 myPic = "pics/hawk64.png"
 
+# initial neuron value (probably in mV)
+neuronVolt = 50; #0
+
 # represents for how long (in MS) the neuron group is run. The longer the better the quality.
-precision = 500;
+precision = 500; # 66
 # the minimum mV for a neuron to fire
-minFiring = 0.01
+minFiring = 0.09 # 0.09
+
+membrane_R = 550; # 550
+
+# the refractory period in ms after a neuron spikes. During this time the neuron shouldn't be able to spike no matter what
+abs_refract_time = 0; # 0
+
+# the value in mV the neuron is set to after spiking. Usually they reset to the 0 mV value
+neuron_reset_v = 0.0; # 0
+
+# in seconds (?) - what does this even do?
+memb_time_scale = 7; # 7
+
+
+# print some brian-related debug stuff
+brianDebug = True; # False
+
+
 
 
 
@@ -217,11 +237,40 @@ minFiring = 0.01
 
 # plot the input (a 2 dimension array with [0,1] values)
 def doAdisplay(inputPic, message):
-    print(message);
+    print(message + "\ninitial neuron v = " + str(neuronVolt) + " mV" +
+
+          "\nduration = " + str(precision) + "ms\nfiring threshold = " + str(minFiring) + "mV\nmembrance Resistance = " +
+          str(membrane_R) + "mohm\nNeuron refractory time : " + str(abs_refract_time) + "ms\nneuron reset value = " + str(neuron_reset_v) +
+          " mV\nmembrane time scaling = " + str(memb_time_scale) + " s");
     plt.imshow(inputPic, cmap=plt.get_cmap('gray'), vmin=0.0, vmax=1.0) # tweak vmin and vmax for some degradation
     #plt.plot(inputPic, 'cmap = gray')
     plt.show()
-   
+
+
+# initial neuron value (probably in mV)
+# higher values feel like brightning up the neurons (pixels) and 0 means I guess default pixel color
+neuronVolt = 0.0; #0
+
+# represents for how long (in MS) the neuron group is run. The longer the better the quality.
+precision = 66; # 66
+# the minimum mV for a neuron to fire
+minFiring = 0.09 # 0.09
+
+membrane_R = 550; # 550
+
+# the refractory period in ms after a neuron spikes. During this time the neuron shouldn't be able to spike no matter what
+abs_refract_time = 0; # 0
+
+# the value in mV the neuron is set to after spiking. Usually they reset to the 0 mV value
+neuron_reset_v = 0.0; # 0
+
+# in seconds (?) - what does this even do?
+memb_time_scale = 7; # 7
+
+
+# print some brian-related debug stuff
+brianDebug = True; # False
+
 
 
 rWeight = 0.2989;
@@ -253,18 +302,19 @@ myGrayPic = rgb2gray(myPicTreated)
 myLif = Lifq_2d()   
 myLif.fit(myGrayPic, is_pixel=False,
                       simulation_time=precision * ms,
-                      firing_threshold = minFiring * mV);
+                      firing_threshold = minFiring * mV,
+                      membrane_resistance = membrane_R * mohm,
+                      abs_refractory_period = abs_refract_time * ms,
+                      v_reset = neuron_reset_v * mV,
+                      membrane_time_scale=memb_time_scale * ms,
+                      v_rest = neuronVolt * mV,
+                          logger=brianDebug);
 
-## default values
-##self, X, simulation_time=66 * ms, v_rest=0 * mV,
-##            v_reset=0 * mV, firing_threshold=0.09 * mV,
-##            membrane_time_scale=7 * ms, membrane_resistance=550 * mohm, abs_refractory_period=0 * ms, logger=False, is_pixel=True):
-##       
 
 #doAdisplay(myGrayPic, "the pic which was just converted to grayscale")
 myPicBackToLife = myLif.getDecodedSignal()
 
-doAdisplay(myPicBackToLife, "the gray pic which was just LIF'd then back to an array")
+doAdisplay(myPicBackToLife, myPic)
 
 
 

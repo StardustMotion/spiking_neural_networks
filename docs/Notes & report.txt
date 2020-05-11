@@ -102,6 +102,12 @@ Neuron Model parameters and what they change from my tweaking :
 
 
 
+a neuron corresponds to one pixel of the picture
+ self._simulate_LIF_neuron(self.matrix, X.shape[0]*X.shape[1], simulation_time, v_rest,
+                                                          v_reset, firing_threshold, membrane_resistance,
+                                                          membrane_time_scale, abs_refractory_period)
+				here the second arg is the number of neurons, so that's height * width
+
 
 
 
