@@ -1,0 +1,51 @@
+The code from the LIFQ module says to use 
+plt.readimg("path/to/img")
+to take the input image, yet readimg doesn't exist (or must be deprecated).
+The function to use is plt.imread
+
+The data returned by plt.imread is a numpy array...
+From the doc, it returns 
+	    "The image data. The returned array has shape
+
+        (M, N) for grayscale images.
+        (M, N, 3) for RGB images.
+        (M, N, 4) for RGBA images."
+		
+So for example, for a RGB picture, the very first triplet is the color of pixel line 1 column 1.
+The second triplet is line 1 column 2.
+Example : a pixel value of
+[0.84313726, 0.72156864, 0.7529412 ]
+is : 215 red, 184 green, 192 blue
+(the triplet values ranging from 0.0 to 1.0 represent a value from 0 to 255)
+
+
+So in my first attempt at doing something productive in this tutorship I'll first go with small grayscale pictures.
+Grayscales pictures have one value for each pixel, between 0 and 255, defining how white (==> 255) or black (==> 0) the pixel is.
+
+from skimage import io
+img = io.imread('marise.png', as_gray=True)
+
+this code reads the input marise.png as a grayscale picture. Here's the numpy.ndarray coming out of this, it represents the gray levels.
+
+array([[0.12156863, 0.07843137, 0.09411765, 0.07058824],
+       [0.23921569, 0.14117647, 0.13333333, 0.11372549],
+       [0.62352941, 0.62352941, 0.38823529, 0.37254902],
+       [0.65490196, 0.63529412, 0.70980392, 0.76470588],
+       [0.64313725, 0.62352941, 0.76078431, 0.77647059]])
+	   
+	   
+	   
+	   
+Grayscale : RGB to GS conversion :
+	Average method :
+		R+G+B, all divided by 3.
+	Weightened / luminosity method :
+	
+	
+	
+	
+	
+	
+Error in the student code I believe : 
+plt.imshow(reconstr_img, cmap=plt.get_cmap('gray'), vmin=0.0, vmax=1.0)
+to display the reconstructed image to the plot, NOT plt.plot(reconstr_img, 'cmap = gray') as mentionned in README
