@@ -49,3 +49,25 @@ Grayscale : RGB to GS conversion :
 Error in the student code I believe : 
 plt.imshow(reconstr_img, cmap=plt.get_cmap('gray'), vmin=0.0, vmax=1.0)
 to display the reconstructed image to the plot, NOT plt.plot(reconstr_img, 'cmap = gray') as mentionned in README
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Initial picture is a 3 dimension array
+one array 
+	containing one array for each pixel line
+			containing one array for each pixel color (red green blue)
+			
+turn it into a 2 dimensional array :
+one array
+containing one array for each pixel line. And that array contain the white to black amount 0,1 or 0,255

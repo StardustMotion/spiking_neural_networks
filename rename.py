@@ -364,8 +364,7 @@
 
 from brian2 import *
 
-
-
+testonnn = 5 * mS
 
 
 
@@ -610,7 +609,7 @@ lif = Lifq_2d()
 
 
 # here is the simulation running I believe
-lif.fit(grayImg)
+#lif.fit(grayImg)
 # and here we construct the image back
 ##reconstr_img = lif.getDecodedSignal()
 ##
