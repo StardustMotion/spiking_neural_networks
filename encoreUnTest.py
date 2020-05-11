@@ -101,7 +101,8 @@ class Lifq_2d:
 
     def fit(self, X, simulation_time=66 * ms, v_rest=0 * mV,
             v_reset=0 * mV, firing_threshold=0.09 * mV,
-            membrane_time_scale=7 * ms, membrane_resistance=550 * mohm, abs_refractory_period=0 * ms, logger=False, is_pixel=True):
+            membrane_time_scale=7 * ms, membrane_resistance=550 * mohm, abs_refractory_period=0 * ms,
+            logger=False, is_pixel=True):
         """
             Apply the lif quantizer to the data
             parameters :
@@ -211,7 +212,7 @@ myGrayPic = rgb2gray(myPicTreated)
 
 # 
 myLif = Lifq_2d()
-myLif.fit(myGrayPic, firing_threshold=0.00 * mV)
+myLif.fit(myGrayPic, is_pixel=False);
 
 ## default values
 ##self, X, simulation_time=66 * ms, v_rest=0 * mV,
