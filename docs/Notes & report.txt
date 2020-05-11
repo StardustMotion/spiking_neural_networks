@@ -71,3 +71,37 @@ one array
 turn it into a 2 dimensional array :
 one array
 containing one array for each pixel line. And that array contain the white to black amount 0,1 or 0,255
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Strange error : the input picture needs to be of same size/height, OR eventually height > width?
+I'd be led to say compression works with macroblock (n*n blocks of pixels) so having a n*(n*2) picture
+would just encore two n*n blocks... but i dunno
+
+
+
+
+
+
+Neuron Model parameters and what they change from my tweaking :
+
+> 
+
+
+
+
+
+

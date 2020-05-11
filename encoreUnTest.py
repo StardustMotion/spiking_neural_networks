@@ -3,9 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
-# a colored pic.
-# Even if it's monochrome its pixel values will be grayed out anyway
-myPic = "pics/surprisedmega.png"
+
+
 
 class Lifq_2d:
 
@@ -173,13 +172,54 @@ class Lifq_2d:
             return self._compute_entropy(self.spike.count)
         else:
             raise AttributeError("You cannot call getEntropy before fit")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# CUSTOMISABLE CODE START HERE
+
+# a colored pic.
+# Even if it's monochrome its pixel values will be grayed out anyway
+myPic = "pics/hawk64.png"
+
+# represents for how long (in MS) the neuron group is run. The longer the better the quality.
+precision = 500;
+# the minimum mV for a neuron to fire
+minFiring = 0.01
+
+
+
+
+
+
+
+
        
 
 # plot the input (a 2 dimension array with [0,1] values)
-def doAdisplay(inputPic):
+def doAdisplay(inputPic, message):
+    print(message);
     plt.imshow(inputPic, cmap=plt.get_cmap('gray'), vmin=0.0, vmax=1.0) # tweak vmin and vmax for some degradation
     #plt.plot(inputPic, 'cmap = gray')
-    print("The input pic grayscaled");
     plt.show()
    
 
@@ -200,7 +240,6 @@ myPicTreated = plt.imread(myPic); #Image.open(myPic).convert("L")
 myGrayPic = rgb2gray(myPicTreated)
 
 
-#doAdisplay(myGrayPic)
 
 
 
@@ -210,9 +249,11 @@ myGrayPic = rgb2gray(myPicTreated)
 
 # LIFIFICATION
 
-# 
-myLif = Lifq_2d()
-myLif.fit(myGrayPic, is_pixel=False);
+
+myLif = Lifq_2d()   
+myLif.fit(myGrayPic, is_pixel=False,
+                      simulation_time=precision * ms,
+                      firing_threshold = minFiring * mV);
 
 ## default values
 ##self, X, simulation_time=66 * ms, v_rest=0 * mV,
@@ -220,10 +261,15 @@ myLif.fit(myGrayPic, is_pixel=False);
 ##            membrane_time_scale=7 * ms, membrane_resistance=550 * mohm, abs_refractory_period=0 * ms, logger=False, is_pixel=True):
 ##       
 
+#doAdisplay(myGrayPic, "the pic which was just converted to grayscale")
 myPicBackToLife = myLif.getDecodedSignal()
 
+doAdisplay(myPicBackToLife, "the gray pic which was just LIF'd then back to an array")
 
-#doAdisplay(myPicBackToLife)
+
+
+
+
 
 
 
