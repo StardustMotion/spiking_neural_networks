@@ -254,7 +254,7 @@ neuronVolt = 0.0; #0
 # represents for how long (in MS) the neuron group is run. The longer the better the quality.
 precision = 66; # 66
 # the minimum mV for a neuron to fire
-minFiring = 0.09 # 0.09
+minFiring = 0.3 # 0.09
 
 membrane_R = 550; # 550
 
@@ -300,24 +300,29 @@ myGrayPic = rgb2gray(myPicTreated)
 
 
 myLif = Lifq_2d()   
-myLif.fit(myGrayPic, is_pixel=False,
-                      simulation_time=precision * ms,
-                      firing_threshold = minFiring * mV,
-                      membrane_resistance = membrane_R * mohm,
-                      abs_refractory_period = abs_refract_time * ms,
-                      v_reset = neuron_reset_v * mV,
-                      membrane_time_scale=memb_time_scale * ms,
-                      v_rest = neuronVolt * mV,
-                          logger=brianDebug);
 
 
 #doAdisplay(myGrayPic, "the pic which was just converted to grayscale")
-myPicBackToLife = myLif.getDecodedSignal()
-
-doAdisplay(myPicBackToLife, myPic)
 
 
 
+
+def lifify():
+    myLif.fit(myGrayPic, is_pixel=False,
+                          simulation_time=precision * ms,
+                          firing_threshold = minFiring * mV,
+                          membrane_resistance = membrane_R * mohm,
+                          abs_refractory_period = abs_refract_time * ms,
+                          v_reset = neuron_reset_v * mV,
+                          membrane_time_scale=memb_time_scale * ms,
+                          v_rest = neuronVolt * mV,
+                              logger=brianDebug);
+    myPicBackToLife = myLif.getDecodedSignal()
+
+    doAdisplay(myPicBackToLife, myPic)
+
+
+        
 
 
 

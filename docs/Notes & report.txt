@@ -110,4 +110,39 @@ a neuron corresponds to one pixel of the picture
 
 
 
+				
+				
+				
+				
+	neuron surjective encoding :
+	https://en.wikipedia.org/wiki/Compression_artifact
+	
+	macroblocks are blocks of n*n pixels (same width / height)
+	
+	when encoding a source picture they create visible square contours
+	
+	how about considering a macroblack "losange"-shaped block?
+	be a pixel n. Consider the losange-shaped macroblock which is made of every pixel within m arbitrary pixels away from n.
+	
+	
+	0	0	0	0	0	0
+	0	0	0	1	0	0
+	0	0	1	1	1	0
+	0	0	0	1	0	0
+	an example of a losange-shaped macroblock of size n = 1
+	
+	0	0	0	0	0	0
+	0	0	1	0	0	0
+	0	1	1	1	0	0
+	1	1	1	1	1	0
+	0	1	1	1	0	0
+	0	0	1	0	0	0
+	
+	example of n = 2 losange-shaped macroblock
+	
+	Basically a macroblock spun 90° degrees.
 
+	
+	
+	Videos have a compression advantage over images. As videos have temporal redundancy : most standard scenes from a video
+	have similar pixel colors, if not only local modifications. Until a new scene goes on screen (especially on hand-drawn videos, anime etc)
